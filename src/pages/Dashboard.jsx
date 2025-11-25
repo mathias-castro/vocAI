@@ -180,7 +180,7 @@ const Dashboard = () => {
                                         onClick={() => handleOpenModal(career)}
                                         className="btn btn-primary flex-1"
                                     >
-                                        Ver Plan de Estudios <ArrowRight className="ml-2 h-4 w-4" />
+                                        Ver Detalles Completos <ArrowRight className="ml-2 h-4 w-4" />
                                     </button>
                                 </div>
                             </div>
