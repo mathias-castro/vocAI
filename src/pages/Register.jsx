@@ -22,7 +22,7 @@ const Register = () => {
 
         const res = register(name, email, password);
         if (res.success) {
-            navigate('/dashboard');
+            navigate('/test');
         } else {
             setError(res.error);
         }

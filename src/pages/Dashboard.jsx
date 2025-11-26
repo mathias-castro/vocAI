@@ -1,4 +1,4 @@
-import { Briefcase, TrendingUp, DollarSign, BookOpen, MapPin, ArrowRight, Star, Download, RotateCcw, LogOut, MessageCircle, Award, GitCompare } from 'lucide-react';
+import { Briefcase, TrendingUp, DollarSign, BookOpen, MapPin, ArrowRight, Star, Download, RotateCcw, LogOut, MessageCircle, Award, GitCompare, ClipboardList } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -25,6 +25,34 @@ const Dashboard = () => {
 
     // Use navigation data if available, otherwise use saved data
     const testResult = navResultData || savedResult;
+
+    // If no test result, we can't show the full dashboard
+    if (!testResult) {
+        return (
+            <div className="page-container dashboard-page flex items-center justify-center min-h-[80vh]">
+                <div className="container max-w-2xl text-center">
+                    <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-12 shadow-2xl backdrop-blur-sm">
+                        <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-8 animate-pulse">
+                            <ClipboardList className="h-12 w-12 text-primary" />
+                        </div>
+                        <h1 className="heading-lg text-white mb-4">¡Bienvenido, {user ? user.name.split(' ')[0] : 'Futuro Profesional'}! 👋</h1>
+                        <p className="text-body text-lg mb-8 max-w-lg mx-auto">
+                            Para crear tu perfil vocacional y darte las mejores recomendaciones, necesitamos conocerte un poco mejor.
+                        </p>
+                        <button
+                            onClick={() => navigate('/test')}
+                            className="btn btn-primary btn-lg w-full sm:w-auto px-12 py-4 text-lg shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all hover:-translate-y-1"
+                        >
+                            Comenzar Test Vocacional <ArrowRight className="ml-3 h-6 w-6" />
+                        </button>
+                        <p className="text-slate-500 text-sm mt-6">
+                            Toma menos de 5 minutos y es 100% gratuito.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     // Get top career and scores
     const topCareerId = testResult?.topCareer || testResult?.careerId || 'software-engineering';
