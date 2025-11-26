@@ -1,4 +1,4 @@
-import { TrendingUp, Heart, Zap, Target, Book, User, Sparkles } from 'lucide-react';
+import { TrendingUp, Heart, Zap, Target, Book, User, Sparkles, Star, Award } from 'lucide-react';
 
 const VocationalProfile = ({ testResult }) => {
     if (!testResult || !testResult.answers) {
@@ -14,124 +14,116 @@ const VocationalProfile = ({ testResult }) => {
     // Extract profile dimensions from answers
     const getInterest = () => {
         const interestMap = {
-            'Tecnología y programación': { icon: <Zap />, color: 'text-blue-400', bg: 'bg-blue-500/20', gradient: 'from-blue-500/20 to-blue-500/5', label: 'Tecnología' },
-            'Arte y diseño': { icon: <Heart />, color: 'text-pink-400', bg: 'bg-pink-500/20', gradient: 'from-pink-500/20 to-pink-500/5', label: 'Arte y Diseño' },
-            'Salud y medicina': { icon: <Heart />, color: 'text-red-400', bg: 'bg-red-500/20', gradient: 'from-red-500/20 to-red-500/5', label: 'Salud' },
-            'Negocios y finanzas': { icon: <TrendingUp />, color: 'text-green-400', bg: 'bg-green-500/20', gradient: 'from-green-500/20 to-green-500/5', label: 'Negocios' },
-            'Ingeniería y construcción': { icon: <TrendingUp />, color: 'text-orange-400', bg: 'bg-orange-500/20', gradient: 'from-orange-500/20 to-orange-500/5', label: 'Ingeniería' },
-            'Comunicación y medios': { icon: <Target />, color: 'text-purple-400', bg: 'bg-purple-500/20', gradient: 'from-purple-500/20 to-purple-500/5', label: 'Comunicación' },
-            'Ciencias sociales': { icon: <Book />, color: 'text-indigo-400', bg: 'bg-indigo-500/20', gradient: 'from-indigo-500/20 to-indigo-500/5', label: 'Sociales' }
+            'Tecnología y programación': { icon: <Zap />, color: 'text-cyan-400', bg: 'bg-cyan-500/20', border: 'border-cyan-500/50', gradient: 'from-cyan-500/20 via-blue-600/20 to-purple-600/20', label: 'Tecnología' },
+            'Arte y diseño': { icon: <Heart />, color: 'text-pink-400', bg: 'bg-pink-500/20', border: 'border-pink-500/50', gradient: 'from-pink-500/20 via-rose-600/20 to-orange-600/20', label: 'Arte y Diseño' },
+            'Salud y medicina': { icon: <Heart />, color: 'text-red-400', bg: 'bg-red-500/20', border: 'border-red-500/50', gradient: 'from-red-500/20 via-red-600/20 to-orange-600/20', label: 'Salud' },
+            'Negocios y finanzas': { icon: <TrendingUp />, color: 'text-emerald-400', bg: 'bg-emerald-500/20', border: 'border-emerald-500/50', gradient: 'from-emerald-500/20 via-green-600/20 to-teal-600/20', label: 'Negocios' },
+            'Ingeniería y construcción': { icon: <TrendingUp />, color: 'text-orange-400', bg: 'bg-orange-500/20', border: 'border-orange-500/50', gradient: 'from-orange-500/20 via-amber-600/20 to-yellow-600/20', label: 'Ingeniería' },
+            'Comunicación y medios': { icon: <Target />, color: 'text-violet-400', bg: 'bg-violet-500/20', border: 'border-violet-500/50', gradient: 'from-violet-500/20 via-purple-600/20 to-fuchsia-600/20', label: 'Comunicación' },
+            'Ciencias sociales': { icon: <Book />, color: 'text-indigo-400', bg: 'bg-indigo-500/20', border: 'border-indigo-500/50', gradient: 'from-indigo-500/20 via-blue-600/20 to-cyan-600/20', label: 'Sociales' }
         };
         return interestMap[answers.q1] || interestMap['Tecnología y programación'];
     };
 
     const interest = getInterest();
 
-    const profileData = [
+    const stats = [
         {
-            category: 'Área de Interés',
-            icon: interest.icon,
-            color: interest.color,
-            bg: interest.bg,
-            gradient: interest.gradient,
-            value: interest.label
-        },
-        {
-            category: 'Habilidad Principal',
-            icon: <Zap />,
-            color: 'text-indigo-400',
-            bg: 'bg-indigo-500/20',
-            gradient: 'from-indigo-500/20 to-indigo-500/5',
-            value: answers.q2 || 'No definido'
-        },
-        {
-            category: 'Motivación',
-            icon: <Target />,
+            label: 'Habilidad Principal',
+            value: answers.q2 || 'No definido',
+            icon: <Star className="w-4 h-4" />,
             color: 'text-yellow-400',
-            bg: 'bg-yellow-500/20',
-            gradient: 'from-yellow-500/20 to-yellow-500/5',
-            value: answers.q5 || 'No definido'
+            bg: 'bg-yellow-400/10',
+            border: 'border-yellow-400/30'
         },
         {
-            category: 'Estilo de Aprendizaje',
-            icon: <Book />,
-            color: 'text-green-400',
-            bg: 'bg-green-500/20',
-            gradient: 'from-green-500/20 to-green-500/5',
-            value: answers.q4 || 'No definido'
+            label: 'Motivación',
+            value: answers.q5 || 'No definido',
+            icon: <Target className="w-4 h-4" />,
+            color: 'text-red-400',
+            bg: 'bg-red-400/10',
+            border: 'border-red-400/30'
         },
         {
-            category: 'Personalidad',
-            icon: <User />,
+            label: 'Estilo de Aprendizaje',
+            value: answers.q4 || 'No definido',
+            icon: <Book className="w-4 h-4" />,
+            color: 'text-blue-400',
+            bg: 'bg-blue-400/10',
+            border: 'border-blue-400/30'
+        },
+        {
+            label: 'Personalidad',
+            value: answers.q7 || 'No definido',
+            icon: <User className="w-4 h-4" />,
             color: 'text-purple-400',
-            bg: 'bg-purple-500/20',
-            gradient: 'from-purple-500/20 to-purple-500/5',
-            value: answers.q7 || 'No definido'
+            bg: 'bg-purple-400/10',
+            border: 'border-purple-400/30'
         }
     ];
 
     return (
-        <div className="bg-gradient-to-br from-slate-900 to-slate-950 border-2 border-white/40 rounded-2xl overflow-hidden shadow-2xl">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 p-6 border-b-2 border-white/30">
-                <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center border border-primary/30">
-                        <span className="text-2xl">📊</span>
+        <div className="relative overflow-hidden rounded-2xl border-2 border-slate-700 bg-slate-900 shadow-2xl">
+            {/* Main Background Gradient */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${interest.gradient} opacity-20 pointer-events-none`} />
+
+            <div className="relative p-6 md:p-8">
+                {/* Header Section */}
+                <div className="flex items-center gap-4 mb-8">
+                    <div className={`w-14 h-14 rounded-2xl ${interest.bg} ${interest.border} border-2 flex items-center justify-center shadow-lg shadow-black/50`}>
+                        <div className={`${interest.color} transform scale-125`}>
+                            {interest.icon}
+                        </div>
                     </div>
                     <div>
-                        <h3 className="text-2xl font-bold text-white">Tu Perfil Vocacional</h3>
-                        <p className="text-slate-400 text-sm mt-0.5">Basado en tus respuestas del test</p>
+                        <h2 className="text-2xl font-bold text-white tracking-tight">Tu Perfil Vocacional</h2>
+                        <div className="flex items-center gap-2 mt-1">
+                            <span className={`text-sm font-semibold ${interest.color} uppercase tracking-wider`}>
+                                {interest.label}
+                            </span>
+                            <span className="text-slate-500 text-sm">•</span>
+                            <span className="text-slate-400 text-sm">Basado en 10 respuestas</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Content */}
-            <div className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                    {profileData.map((item, index) => (
-                        <div
-                            key={index}
-                            className={`group relative bg-gradient-to-br ${item.gradient} border-2 border-white/20 rounded-2xl p-5 transition-all duration-300 hover:border-white/40 hover:shadow-xl hover:scale-105 cursor-default`}
-                        >
-                            {/* Background decoration */}
-                            <div className="absolute top-0 right-0 w-20 h-20 opacity-5 overflow-hidden rounded-tr-2xl">
-                                <div className={`w-full h-full ${item.color} scale-150`}>
-                                    {item.icon}
-                                </div>
+                {/* Content Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {/* Main Card - Identity */}
+                    <div className={`lg:col-span-1 relative overflow-hidden rounded-xl border-2 ${interest.border} bg-slate-800/50 p-6 flex flex-col justify-center items-center text-center group transition-all hover:bg-slate-800/80`}>
+                        <div className={`absolute inset-0 bg-gradient-to-b ${interest.gradient} opacity-10 group-hover:opacity-20 transition-opacity`} />
+
+                        <div className="relative z-10">
+                            <div className="mb-4 inline-flex p-4 rounded-full bg-slate-900/50 border border-slate-700 shadow-xl">
+                                <Award className={`w-12 h-12 ${interest.color}`} />
                             </div>
-
-                            {/* Content */}
-                            <div className="relative flex flex-col items-center text-center gap-3">
-                                {/* Icon */}
-                                <div className={`w-14 h-14 rounded-xl ${item.bg} border-2 border-white/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}>
-                                    <div className={`${item.color} text-xl`}>
-                                        {item.icon}
-                                    </div>
-                                </div>
-
-                                {/* Label */}
-                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                                    {item.category}
-                                </div>
-
-                                {/* Value */}
-                                <div className={`font-bold text-base ${item.color} leading-tight`}>
-                                    {item.value}
-                                </div>
-                            </div>
-
-                            {/* Hover indicator */}
-                            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                            <h3 className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Arquetipo Principal</h3>
+                            <p className="text-2xl font-bold text-white mb-2">{interest.label}</p>
+                            <p className="text-slate-400 text-sm leading-relaxed">
+                                Tu perfil destaca por un fuerte interés en {interest.label.toLowerCase()},
+                                mostrando afinidad por {answers.q2 ? answers.q2.toLowerCase() : 'tus habilidades'}.
+                            </p>
                         </div>
-                    ))}
-                </div>
+                    </div>
 
-                {/* Footer */}
-                <div className="mt-6 bg-gradient-to-r from-slate-800/50 to-slate-900/50 border-2 border-white/20 rounded-xl p-4 flex items-center gap-3">
-                    <Sparkles className="h-5 w-5 text-primary flex-shrink-0" />
-                    <p className="text-xs text-slate-400">
-                        Este perfil se generó automáticamente a partir de tus <span className="text-primary font-semibold">10 respuestas</span> del test vocacional
-                    </p>
+                    {/* Stats Grid */}
+                    <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {stats.map((stat, idx) => (
+                            <div key={idx} className={`relative overflow-hidden rounded-xl border ${stat.border} ${stat.bg} p-4 flex items-start gap-4 transition-transform hover:scale-[1.02]`}>
+                                <div className={`mt-1 p-2 rounded-lg bg-slate-900/50 border border-slate-700 ${stat.color}`}>
+                                    {stat.icon}
+                                </div>
+                                <div>
+                                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
+                                        {stat.label}
+                                    </h4>
+                                    <p className="text-white font-semibold text-base leading-tight">
+                                        {stat.value}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

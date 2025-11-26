@@ -1,6 +1,9 @@
-import { Lightbulb, AlertCircle, Target, BookOpen, TrendingUp, Heart, Zap, Users } from 'lucide-react';
+import { Lightbulb, AlertCircle, Target, BookOpen, TrendingUp, Heart, Zap, Users, ChevronDown } from 'lucide-react';
+import { useState } from 'react';
 
 const PersonalizedAdvice = ({ testResult, topCareerData }) => {
+    const [isOpen, setIsOpen] = useState(true);
+
     if (!testResult || !testResult.answers) {
         return null;
     }
@@ -239,32 +242,32 @@ const PersonalizedAdvice = ({ testResult, topCareerData }) => {
         switch (type) {
             case 'strength':
                 return {
-                    container: 'bg-gradient-to-r from-green-500/10 to-green-500/5 border-l-4 border-green-500 hover:from-green-500/15 hover:to-green-500/8',
-                    icon: 'bg-green-500/20 text-green-400',
+                    container: 'bg-emerald-500/10 border-l-4 border-emerald-500 hover:bg-emerald-500/20',
+                    icon: 'text-emerald-400 bg-emerald-500/20',
                     text: 'text-slate-200'
                 };
             case 'alert':
                 return {
-                    container: 'bg-gradient-to-r from-yellow-500/10 to-yellow-500/5 border-l-4 border-yellow-500 hover:from-yellow-500/15 hover:to-yellow-500/8',
-                    icon: 'bg-yellow-500/20 text-yellow-400',
+                    container: 'bg-amber-500/10 border-l-4 border-amber-500 hover:bg-amber-500/20',
+                    icon: 'text-amber-400 bg-amber-500/20',
                     text: 'text-slate-200'
                 };
             case 'tip':
                 return {
-                    container: 'bg-gradient-to-r from-blue-500/10 to-blue-500/5 border-l-4 border-blue-500 hover:from-blue-500/15 hover:to-blue-500/8',
-                    icon: 'bg-blue-500/20 text-blue-400',
+                    container: 'bg-blue-500/10 border-l-4 border-blue-500 hover:bg-blue-500/20',
+                    icon: 'text-blue-400 bg-blue-500/20',
                     text: 'text-slate-200'
                 };
             case 'development':
                 return {
-                    container: 'bg-gradient-to-r from-purple-500/10 to-purple-500/5 border-l-4 border-purple-500 hover:from-purple-500/15 hover:to-purple-500/8',
-                    icon: 'bg-purple-500/20 text-purple-400',
+                    container: 'bg-violet-500/10 border-l-4 border-violet-500 hover:bg-violet-500/20',
+                    icon: 'text-violet-400 bg-violet-500/20',
                     text: 'text-slate-200'
                 };
             default:
                 return {
-                    container: 'bg-gradient-to-r from-slate-500/10 to-slate-500/5 border-l-4 border-slate-500',
-                    icon: 'bg-slate-500/20 text-slate-400',
+                    container: 'bg-slate-500/10 border-l-4 border-slate-500',
+                    icon: 'text-slate-400 bg-slate-500/20',
                     text: 'text-slate-200'
                 };
         }
@@ -286,51 +289,59 @@ const PersonalizedAdvice = ({ testResult, topCareerData }) => {
     };
 
     return (
-        <div className="bg-gradient-to-br from-slate-900 to-slate-950 border-2 border-white/40 rounded-2xl overflow-hidden shadow-2xl">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 p-6 border-b-2 border-white/30">
-                <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center border border-yellow-500/30">
-                        <span className="text-2xl">💡</span>
+        <div className="relative overflow-hidden rounded-2xl border-2 border-slate-700 bg-slate-900 shadow-2xl transition-all duration-300">
+            {/* Header Collapsible Trigger */}
+            <div
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-full relative z-10 flex items-center justify-between p-6 md:p-8 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 transition-all duration-300 group text-left cursor-pointer select-none shadow-lg"
+            >
+                <div className="flex items-center gap-5">
+                    <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform duration-300">
+                        <Lightbulb className="w-8 h-8 text-white drop-shadow-md" />
                     </div>
                     <div>
-                        <h3 className="text-2xl font-bold text-white">Consejos Personalizados</h3>
-                        <p className="text-slate-400 text-sm mt-0.5">Recomendaciones basadas en tu perfil único</p>
+                        <h3 className="text-2xl font-bold text-white tracking-tight drop-shadow-sm">Consejos Personalizados</h3>
+                        <p className="text-white/90 text-sm mt-1 font-medium">Recomendaciones estratégicas para tu éxito</p>
                     </div>
                 </div>
-            </div>
-
-            {/* Content */}
-            <div className="p-6">
-                <div className="grid grid-cols-1 gap-4">
-                    {advice.map((item, idx) => {
-                        const styles = getStyleClasses(item.type);
-                        return (
-                            <div
-                                key={idx}
-                                className={`${styles.container} rounded-xl p-4 transition-all duration-300 cursor-default`}
-                            >
-                                <div className="flex gap-4">
-                                    {/* Icon */}
-                                    <div className={`flex-shrink-0 w-10 h-10 rounded-lg ${styles.icon} flex items-center justify-center`}>
-                                        {item.icon}
-                                    </div>
-
-                                    {/* Content */}
-                                    <div className="flex-1 min-w-0">
-                                        <div className="text-xs font-bold uppercase tracking-wider mb-2 opacity-70 text-white">
-                                            {getTypeLabel(item.type)}
-                                        </div>
-                                        <p className={`text-sm leading-relaxed ${styles.text}`}>
-                                            {item.text}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
+                <div className={`p-3 rounded-full bg-white/10 border border-white/20 transition-all duration-300 ${isOpen ? 'rotate-180 bg-white/20' : 'hover:bg-white/20'}`}>
+                    <ChevronDown className="w-6 h-6 text-white" />
                 </div>
             </div>
+
+            {/* Collapsible Content - Conditional Rendering */}
+            {isOpen && (
+                <div className="p-6 md:p-8 pt-0 bg-slate-900/50 animate-in fade-in slide-in-from-top-2 duration-300">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        {advice.map((item, idx) => {
+                            const styles = getStyleClasses(item.type);
+                            return (
+                                <div
+                                    key={idx}
+                                    className={`${styles.container} rounded-xl p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}
+                                >
+                                    <div className="flex gap-4">
+                                        {/* Icon */}
+                                        <div className={`flex-shrink-0 w-12 h-12 rounded-xl ${styles.icon} flex items-center justify-center`}>
+                                            {item.icon}
+                                        </div>
+
+                                        {/* Content */}
+                                        <div className="flex-1 min-w-0">
+                                            <div className="text-xs font-bold uppercase tracking-wider mb-2 opacity-80 text-white">
+                                                {getTypeLabel(item.type)}
+                                            </div>
+                                            <p className={`text-sm leading-relaxed ${styles.text}`}>
+                                                {item.text}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
